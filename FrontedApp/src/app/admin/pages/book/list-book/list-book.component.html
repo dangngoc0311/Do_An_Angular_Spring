@@ -1,0 +1,144 @@
+<div class="row">
+    <div class="col-lg-3 col-md-3 pr-0">
+        <div class="card">
+            <div class="filter-group">
+                <header class="card-header">
+                    <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                        <h6 class="title">{{ 'category'|translate }}</h6>
+                    </a>
+                </header>
+                <div class="filter-content collapse show" id="collapse_1" style="">
+                    <div class="card-body">
+                        <ul class="list-menu">
+                            <li *ngFor="let cate of listCate" class="border-bottom p-2 mb-1 bg-light {{ cate.id == categoryId?'text-danger':'' }}"><a (click)="findBookByCateId(cate.id)">{{ cate.name }}</a></li>
+                        </ul>
+                    </div>
+                    <!-- card-body.// -->
+                </div>
+            </div>
+            <div class="filter-group">
+                <header class="card-header">
+                    <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="false" class="">
+                        <h6 class="title">{{ 'price'|translate }}</h6>
+                    </a>
+                </header>
+                <div class="filter-content collapse" id="collapse_2">
+                    <div class="card-body">
+                        <ul class="list-menu">
+                            <li class="border-bottom p-1 pt-2 pb-2 mb-1 bg-light {{ min==0 && max==40000?'text-danger':'' }}"> <a (click)="findBookByPrice(0,40000)">₫0 - ₫40,000</a></li>
+                            <li class="border-bottom p-1 pt-2 pb-2 mb-1 bg-light {{ min==40000 && max==80000?'text-danger':'' }}"> <a (click)="findBookByPrice(40000,80000)">₫40,000 - ₫80,000</a></li>
+                            <li class="border-bottom  pt-2 pb-2 mb-1 bg-light {{ min==80000 && max==120000?'text-danger':'' }}"> <a (click)="findBookByPrice(80000,120000)">₫80,000 - ₫100,000
+                </a></li>
+                        </ul>
+                    </div>
+                    <!-- card-body.// -->
+                </div>
+            </div>
+
+        </div>
+        <!-- card.// -->
+    </div>
+    <div class="col-lg-9 col-md-9 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ 'listProduct'|translate }}<a class="btn btn-inverse-secondary btn-fw float-right" [routerLink]="['/admin/insertBook']">{{ 'add'|translate }}</a></h4>
+                <div class="row">
+                    <div class="col-lg-6 ">
+                        <form class="form-sample pb-3" [formGroup]="searchForm" role="form" (ngSubmit)="search()">
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="search" placeholder="{{ 'searchProduct'|translate }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="submit">
+                    <i class="fa fa-search"></i>
+                  </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <select class="form-control" id="exampleFormControlSelect1" #t (change)="setPageSize(t.value)">
+                <option value="3">{{ 'show' | translate}} 3 {{ 'results'|translate }}</option>
+                <option value="6">{{ 'show' | translate}} 6 {{ 'results'|translate }}</option>
+                <option value="10">{{ 'show' | translate}} 10 {{ 'results'|translate }}</option>
+              </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive pt-3">
+
+                    <table class="table table-bordered">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    # &nbsp; <i (click)="sortBy('id','ASC')" class="fa fa-long-arrow-up pointer " aria-hidden="true"></i> &nbsp;
+                                    <i (click)="sortBy('id','DESC')" class="fa fa-long-arrow-down pointer " aria-hidden="true"></i>
+                                </th>
+                                <th>
+                                    {{ 'name'|translate }} &nbsp;
+                                    <i (click)="sortBy('name','ASC')" class="fa fa-long-arrow-up pointer " aria-hidden="true"></i> &nbsp;
+                                    <i (click)="sortBy('name','DESC')" class="fa fa-long-arrow-down pointer " aria-hidden="true"></i>
+                                </th>
+                                <th>{{ 'image'|translate }}</th>
+                                <th>{{ 'price'|translate }} &nbsp; <i (click)="sortBy('price','ASC')" class="fa fa-long-arrow-up pointer " aria-hidden="true"></i> &nbsp;
+                                    <i (click)="sortBy('price','DESC')" class="fa fa-long-arrow-down pointer " aria-hidden="true"></i>
+                                </th>
+                                <th>{{ 'salePrice'|translate }}</th>
+                                <th>
+                                    {{ 'status'|translate }}
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listBook">
+                                <td>
+                                    {{ item.id }}
+                                </td>
+                                <td>
+                                    {{ item.name }}
+                                </td>
+                                <td><img [src]="this.host+'/getImageBook/'+item.image " alt="" style="width:100px ; border-radius: 0%;height: 100px;"> </td>
+                                <td>{{ item.price |currency:"VND"}}</td>
+                                <td *ngIf="item.saleprice!=null && item.typesale;">{{ item.price-(item.saleprice*item.price/100) |currency:"VND" }}</td>
+                                <td *ngIf="item.saleprice!=null && !item.typesale;">{{ item.price-item.saleprice |currency:"VND"}}</td>
+                                <td *ngIf="item.saleprice==null && item.typesale==null"></td>
+                                <td *ngIf="item.quantity==0">
+                                    {{ 'outStock'|translate }}
+                                </td>
+                                <td *ngIf="item.quantity>0">
+                                    {{ 'stocking'|translate }}
+                                </td>
+                                <td>
+                                    <a (click)="deleteBook(item.id)" class="btn btn-inverse-primary  btn-icon mr-2">
+                                        <i class="typcn typcn-trash"></i>
+                                    </a>
+                                    <a routerLink="/admin/detailBook/{{ item.id }}" class="btn btn-inverse-info  btn-icon mr-2">
+                                        <i class="typcn typcn-eye-outline"></i>
+                                    </a>
+                                    <a routerLink="/admin/updateBook/{{ item.id }}" class="btn btn-inverse-success mr-2  btn-icon">
+                                        <i class="typcn typcn-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <div class="demo">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination text-center">
+                                        <li class="page-item" *ngFor="let p of pages;let i=index"><a class="page-link {{ i===pageNumber?'active':'' }}" (click)="setPageNumber(i,$event)">{{ i+1 }}</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'account'|translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home'|translate }}</a></li>
+                        <li><span>{{ 'login'|translate }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="account-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+                <form class="account-form form-style" [formGroup]="infoForm" role="form" (ngSubmit)="loginUser()">
+                    <div class="form-group col-md-12">
+                        <label for="inputPassword4">Email</label>
+                        <input type="email" class="form-control" id="inputPassword4" formControlName="email" name="email">
+                        <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)|| submitted" class="text-danger">
+                            <div *ngIf="f['email'].errors">
+                                <div *ngIf="f['email'].errors['required']">
+                                    Email {{ 'required'|translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="inputAddress2">{{ 'password'|translate }}</label>
+                        <input type="password" class="form-control" id="inputAddress2" formControlName="password" name="password">
+                        <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)|| submitted" class="text-danger">
+                            <div *ngIf="f['password'].errors">
+                                <div *ngIf="f['password'].errors['required']">
+                                    {{ 'password'|translate }} {{ 'required'|translate }}
+                                </div>
+                                <div *ngIf="f['password'].errors['minlength']">
+                                    {{ 'password'|translate }} {{ 'minLength'|translate }} 6 {{ 'characters'|translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="">{{ 'send'|translate }}</button>
+                    </div>
+                </form>
+                <div class="text-center text-danger">
+                    <a [routerLink]="['/forgotPassword']">{{ 'forgotPassword'|translate }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'checkout'|translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home'|translate }}</a></li>
+                        <li><span>{{ 'translate'|translate }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="checkout-area ptb-100">
+    <div class="container">
+        <form [formGroup]="infoFo" role="form" (ngSubmit)="insertOrder()">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="checkout-form form-style">
+                        <h3>{{ 'bill'|translate }}</h3>
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <p>{{ 'fullName'|translate }} *</p>
+                                <input type="text" [value]="account.name" formControlName="name" name="name">
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <p>{{ 'phone'|translate }} *</p>
+                                <input type="text" value="{{ account.phone }}" formControlName="phone" name="phone">
+                            </div>
+                            <div class="col-12">
+                                <p>Email</p>
+                                <input type="text" value="{{ account.email }}">
+                            </div>
+                            <div class="col-12">
+                                <p>{{ 'address'|translate }} </p>
+                                <input type="text" value="{{ account.address }}" formControlName="address" name="address">
+                            </div>
+                            <div class="col-12">
+                                <p>{{ 'orderNotes'|translate }} </p>
+                                <textarea name="massage" formControlName="note" name="note"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="order-area">
+                        <h3>{{ 'order' | translate }}</h3>
+                        <ul class="total-cost">
+                            <li *ngFor="let item of cart">{{ item.name }} x {{ item.qty}}
+                                <span class="pull-right" *ngIf="item.saleprice!=null && item.typesale;">{{ (item.price-(item.saleprice*item.price/100))*item.qty | currency: "VND" }}</span>
+                                <span class="pull-right" *ngIf="item.saleprice!=null && !item.typesale;">{{ (item.price-item.saleprice)*item.qty | currency: "VND" }}</span>
+                                <span class="pull-right" *ngIf="item.saleprice==null && item.typesale==null">{{ item.price*item.qty | currency: "VND"}}</span>
+                            </li>
+                            <li> {{ 'price'|translate }}:
+                                <span class="pull-right">{{ subToTalPrice | currency: "VND" }}</span>
+                            </li>
+                            <li>{{ 'totalPrice'|translate }}:<span class="pull-right"> {{ totalPriceCart | currency: "VND" }}
+                              <span style="font-size:12px;color: red;" *ngIf="usedDiscountCoupon==null ">
+                              </span>
+                                <span style="font-size:12px;color: red;" *ngIf="usedDiscountCoupon!=null && usedDiscountCoupon.type"> (- {{ usedDiscountCoupon.discountvalue}} %)
+                                </span>
+                                <span style="font-size:12px;color: red;" *ngIf="usedDiscountCoupon!=null && !usedDiscountCoupon.type"> (- {{ usedDiscountCoupon.discountvalue | currency: "VND" }} )
+                                </span>
+                                </span>
+                            </li>
+                        </ul>
+                        <button type="submit">{{ 'orders'|translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

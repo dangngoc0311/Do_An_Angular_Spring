@@ -1,0 +1,177 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'account'|translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home'|translate }}</a></li>
+                        <li><span>{{ 'account'|translate }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="account-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-profile shadow">
+
+                    <div class="card-header text-center border-0 pt-6 pt-md-3 pb-0 pb-md-3">
+                        <h5 class="text-uppercase ">{{ account.name }}</h5>
+                    </div>
+                    <div class="card-body pt-0 pt-md-2">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card-profile-stats d-flex justify-content-center">
+                                    <div>
+                                        <span class="heading">{{ listOrderTracking }}</span>
+                                        <span class="description">{{ 'order'|translate }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="heading">{{ listReviews?.length }}</span>
+                                        <span class="description">{{ 'reviews'|translate }}</span>
+                                    </div>
+                                </div>
+                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                    <a class="nav-link active show" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
+                                        <i class="fa fa-user-o text-center mr-1" aria-hidden="true"></i>{{ 'account'|translate }}
+                                    </a>
+                                    <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
+                                        <i class="fa fa-key text-center mr-1"></i> {{ 'coup'|translate }}
+                                    </a>
+                                    <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
+                                        <i class="fa fa-star-o text-center mr-1" aria-hidden="true"></i> {{ 'customerReview'|translate }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content border-0 p-0" id="v-pills-tabContent">
+                    <div class="contact-form form-style tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                        <div class="cf-msg" style="display: none;"></div>
+                        <form [formGroup]="infoForm" role="form" (ngSubmit)="updateAccount()" id="cf">
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" formControlName="name" id="fname" name="name">
+                                </div>
+                                <div class="col-12  col-sm-6">
+                                    <input type="text" id="email" class="form-control-plaintext" value="{{ account.phone }}" readonly>
+                                </div>
+                                <div class="col-12">
+                                    <input type="email" class="form-control-plaintext" value="{{ account.email }}" readonly>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="contact-textarea" formControlName="address"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit">{{ 'update'|translate }}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                        <table class="table-responsive cart-wrap">
+                            <thead>
+                                <tr>
+                                    <th class="product"> {{ 'conditionCoupon'|translate }}</th>
+                                    <th class="stock"> {{ 'disValue'|translate }}</th>
+                                    <th class="product"> {{ 'enddate'|translate }}</th>
+                                    <th class="stock">{{ 'status'|translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listUserCoupon">
+                                    <td class="product">{{ item.objCouponUser.condition |currency:'VND' }}</td>
+                                    <td *ngIf="item.objCouponUser.type" class="stock">
+                                        {{ item.objCouponUser.discountvalue }} %
+                                    </td>
+                                    <td *ngIf="!item.objCouponUser.type" class="product">
+                                        {{ item.objCouponUser.discountvalue |currency:'VND'}}
+                                    </td>
+                                    <td class="product"> {{ item.objCouponUser.enddate| date }}</td>
+                                    <td class="stock text-success" *ngIf="item.status">
+                                        {{ 'notused'|translate }}
+                                    </td>
+                                    <td class="stock text-danger" *ngIf="!item.status">
+                                        {{ 'used'|translate }}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                        <table class="table-responsive cart-wrap">
+                            <thead>
+                                <tr>
+                                    <th class="addcart"> {{ 'name'|translate }}</th>
+                                    <th class="stock"> {{ 'rating'|translate }}</th>
+                                    <th class="product"> {{ 'description'|translate }}</th>
+                                    <th class="remove">{{ 'status'|translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listReviews">
+                                    <td class="addcart"><a class="" routerLink="/detailProduct/{{ item.objBookReview.id}}">{{ item.objBookReview.name }}</a> </td>
+                                    <td class="stock">
+                                        <div class="product-ratting">
+                                            <ul *ngIf="item.rating==1">
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            </ul>
+                                            <ul *ngIf="item.rating==2">
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            </ul>
+                                            <ul *ngIf="item.rating==3">
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            </ul>
+                                            <ul *ngIf="item.rating==4">
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            </ul>
+                                            <ul *ngIf="item.rating==5">
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                                <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td class="product">{{ item.description }}</td>
+                                    <td class="remove text-success" *ngIf="item.status">
+                                        {{ 'approved'|translate }}
+                                    </td>
+                                    <td class="remove text-danger" *ngIf="!item.status">
+                                        {{ 'notapproved'|translate }}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

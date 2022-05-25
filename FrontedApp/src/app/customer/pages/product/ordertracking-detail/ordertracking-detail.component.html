@@ -1,0 +1,77 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'detail'|translate }} {{ 'ord' | translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home'|translate }}</a></li>
+                        <li><span>{{ 'detail'|translate }} {{ 'orders' | translate }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h5 *ngIf="ordertracking.status==2" class="text-danger text-bold">{{ 'eceived'|translate }} {{ beforeDate|date: 'dd/MM/yyyy' }} !!</h5>
+                <article class="card">
+                    <div class="card-body">
+                        <article class="card">
+
+                            <div class="card-body row">
+
+                                <div class="col"> <strong>{{ 'orderDate'|translate }} :</strong> <br>{{ ordertracking.orderdate |date: 'dd/MM/yyyy' }} </div>
+                                <div class="col"> <strong>{{ 'address'|translate }}:</strong> <br> {{ ordertracking.address }} <i class="fa fa-phone"></i> +{{ ordertracking.phone }} </div>
+                                <div class="col" *ngIf=" ordertracking.objOrderCoupon==null "> <strong>{{ 'coupon'|translate
+                    }}:</strong> <br>
+
+                                </div>
+                                <div class="col" *ngIf=" ordertracking.objOrderCoupon!=null "> <strong>{{ 'coupon'|translate
+                    }}:</strong> <br> {{ ordertracking.objOrderCoupon.discountvalue }} {{ ordertracking.objOrderCoupon.type?'%':'VND' }}
+                                </div>
+                                <div class="col"> <strong>{{ 'totalPrice'|translate }}:</strong> <br> {{ ordertracking.subtotalprice |currency:"VND"}} </div>
+                            </div>
+                        </article>
+                        <div class="track">
+                            <div class="step {{ ordertracking.status == 0 ?'active':'' }} {{ ordertracking.status == 1 ?'active':'' }} {{ ordertracking.status == 2 ?'active':'' }} {{ ordertracking.status == 3 ?'active':'' }}">
+                                <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">{{ 'pending'|translate
+                  }}</span>
+                            </div>
+                            <div class="step {{ ordertracking.status == 1 ?'active':'' }} {{ ordertracking.status == 2 ?'active':'' }} {{ ordertracking.status == 3 ?'active':'' }}">
+                                <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">{{ 'confirm'|translate
+                  }}</span>
+                            </div>
+                            <div class="step {{ ordertracking.status == 2 ?'active':'' }} {{ ordertracking.status == 3 ?'active':'' }}">
+                                <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> {{ 'delivery'|translate }}
+                </span>
+                            </div>
+                            <div class="step {{ ordertracking.status == 3 ?'active':'' }}"> <span class="icon"> <i
+                    class="fa fa-check-square-o" aria-hidden="true"></i> </span> <span class="text">{{
+                  'successDelivery'|translate }}</span> </div>
+                        </div>
+                        <hr>
+                        <table class="table-responsive cart-wrap">
+                            <tbody>
+                                <tr *ngFor="let item of listOrderDetail">
+                                    <td class="ptice">{{ item.objBookOrder.name }}</td>
+                                    <td class="images"> <img style="height:110px;" [src]="this.host+'/getImageBook/'+item.objBookOrder.image " alt=""></td>
+                                    <td class="ptice">{{ item.price | currency:"VND" }}</td>
+                                    <td class="ptice">{{ item.quantity }}</td>
+                                    <td class="ptice">{{ item.quantity*item.price | currency:"VND" }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <a [routerLink]="['/orderTracking']" class="btn btn-warning float-left text-white"> <i class="fa fa-chevron-left"></i> {{ 'back' | translate }}</a>
+                        <a (click)="successDelivery(ordertracking.id)" *ngIf="ordertracking.status==2" class="btn btn-danger float-right text-white"><i class="fa fa-check" aria-hidden="true"></i> {{
+              'ItemReceived' | translate }}</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

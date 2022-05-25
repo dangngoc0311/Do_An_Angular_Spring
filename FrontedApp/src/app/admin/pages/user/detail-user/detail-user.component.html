@@ -1,0 +1,31 @@
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ 'update'|translate }} {{ 'account'|translate }}</h4>
+            <div class="tab-content border-0 p-0" id="v-pills-tabContent">
+                <div class="contact-form form-style tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="cf-msg" style="display: none;"></div>
+                    <form [formGroup]="infoForm" role="form" (ngSubmit)="updateAccount()" id="cf">
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <input type="text" formControlName="name" id="fname" name="name">
+                            </div>
+                            <div class="col-12  col-sm-6">
+                                <input type="text" id="email" class="form-control-plaintext" value="{{ account.phone }}" readonly>
+                            </div>
+                            <div class="col-12">
+                                <input type="email" class="form-control-plaintext" value="{{ account.email }}" readonly>
+                            </div>
+                            <div class="col-12">
+                                <textarea class="contact-textarea" formControlName="address"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit">{{ 'update'|translate }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

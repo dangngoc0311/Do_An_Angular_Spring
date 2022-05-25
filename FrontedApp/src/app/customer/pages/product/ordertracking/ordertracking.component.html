@@ -1,0 +1,52 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'order'|translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home'|translate }}</a></li>
+                        <li><span>{{ 'order'|translate }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="cart">
+                    <table class="table-responsive cart-wrap">
+                        <thead>
+                            <tr>
+                                <th class="images">#</th>
+                                <th class="ptice">{{ 'totalPrice' | translate }}</th>
+                                <th class="ptice">{{ 'orderDate'|translate }}</th>
+                                <th class="stock">{{ 'status'|translate }} </th>
+                                <th class="addcart"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listOrderTracking">
+                                <th class="images">{{ item.id }}</th>
+                                <td class="ptice">{{ item.subtotalprice |currency:"VND" }}</td>
+                                <th class="ptice">{{ item.orderdate |date: 'dd/MM/yyyy' }}</th>
+                                <td class="stock text-danger" *ngIf="item.status ==0">{{ 'pending'|translate }}</td>
+                                <td class="stock text-warning " *ngIf="item.status ==1">{{ 'confirm'|translate }}</td>
+                                <td class="stock text-primary" *ngIf="item.status ==2">{{ 'delivery'|translate }}
+
+                                    <a (click)="successDelivery(item.id)" class="btn btn-danger text-white">{{ 'ItemReceived'|translate }}</a>
+                                </td>
+                                <td class="stock text-success " *ngIf="item.status ==3">{{ 'successDelivery'|translate }}</td>
+                                <td class="addcart"><a routerLink="/orderTrackingDetail/{{ item.id}}">{{ 'detail'|translate }}</a></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item">
+
+            <p class="sidebar-menu-title"></p>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['homeAdmin']">
+                <i class="typcn typcn-device-desktop menu-icon"></i>
+                <span class="menu-title">{{ 'home'|translate }} </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="typcn typcn-briefcase menu-icon"></i>
+                <span class="menu-title">{{ 'category' | translate }}</span>
+                <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['listCategory']">{{ 'list' |translate }} {{ 'category' | translate }}</a></li>
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['insertCategory']">{{ 'add' | translate }} {{ 'category' | translate }}</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                <i class="typcn typcn-film menu-icon"></i>
+                <span class="menu-title">{{ 'book'| translate }}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['listBook']">{{ 'list'|translate }} {{ 'book'|translate }}</a></li>
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['insertBook']">{{ 'add'| translate }} {{ 'book'|translate }}</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#chaQrts" aria-expanded="false" aria-controls="chaQrts">
+                <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+                <span class="menu-title">{{ 'coup'|translate }}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="chaQrts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['listCoupon']">{{ 'list'| translate }} {{ 'coup'|translate }}</a></li>
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['insertCoupon']">{{ 'add'|translate }} {{ 'coup'|translate }}</a> </li>
+                </ul>
+            </div>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#chartsSS" aria-expanded="false" aria-controls="chartsSS">
+                <i class="typcn typcn-shopping-cart menu-icon"></i>
+                <span class="menu-title">{{ 'ord'| translate }}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="chartsSS">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['listOrder']">{{ 'list'| translate }} {{ 'order'| translate }}</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#chartpS" aria-expanded="false" aria-controls="chartpS">
+                <i class="typcn typcn-messages menu-icon"></i>
+                <span class="menu-title">{{ 'reviews'|translate }}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="chartpS">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['listReview']">{{ 'list'| translate }} {{ 'reviews'|translate }}</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#chartpSa" aria-expanded="false" aria-controls="chartpSa">
+                <i class="typcn typcn-user-outline menu-icon"></i>
+                <span class="menu-title">{{ 'userAccount'|translate }}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="chartpSa">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" [routerLink]="['listUser']">{{ 'list'| translate }} {{ 'account'|translate }}</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>

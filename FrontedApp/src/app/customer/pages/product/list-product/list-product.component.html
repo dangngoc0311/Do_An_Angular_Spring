@@ -1,0 +1,168 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'list' | translate }} {{ 'book'|translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home'|translate }}</a></li>
+                        <li><span>{{ 'shop'|translate }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- .breadcumb-area end -->
+<!-- product-area start -->
+<div class="product-area ptb-100 product-sidebar-area">
+    <div class="container">
+        <div class="row revarce-wrap">
+            <div class="col-lg-3 col-12">
+                <aside class="sidebar-area">
+                    <div class="widget widget_search">
+                        <h4 class="widget-title">{{ 'searchProduct'|translate }}</h4>
+                        <form [formGroup]="formSearch" role="form" class="searchform" (ngSubmit)="searchForm()">
+                            <input type="text" formControlName="searchName" name="searchName" placeholder="{{ 'searchProduct'|translate }}..." value="{{ searchValue}}">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="widget widget_categories">
+                        <h4 class="widget-title">{{ 'price'|translate }}</h4>
+                        <ul>
+                            <li class="{{ categoryId==''&& searchValue=='' && min=='' && max==''?'active':'' }}"> <a (click)="reset()">{{ 'allProduct' | translate }} </a></li>
+                            <li class="{{ min==0 && max==40000?'active':'' }}"> <a (click)="findBookByPrice(0,40000)">0
+                                    - 40,000 (VND)
+                                </a></li>
+                            <li class="{{ min==40000 && max==80000?'active':'' }}"> <a (click)="findBookByPrice(40000,80000)">40,000 -
+                                    80,000 (VND)
+                                </a></li>
+                            <li class="{{ min==80000 && max==120000?'active':'' }}"> <a (click)="findBookByPrice(80000,120000)">80,000
+                                    - 120,000 (VND)
+                                </a></li>
+                            <li class="{{ min==120000 && max==200000?'active':'' }}"> <a (click)="findBookByPrice(120000,200000)">120,000
+                                  - 200,000 (VND)
+                              </a></li>
+                        </ul>
+                    </div>
+                    <div class="widget widget_categories">
+                        <h4 class="widget-title">{{ 'category'|translate }}</h4>
+                        <ul>
+                            <li class="{{ categoryId==''&& searchValue=='' && min=='' && max==''?'active':'' }}"> <a (click)="reset()">{{ 'allProduct' | translate }} </a></li>
+                            <li *ngFor="let cate of listCate" class="{{ cate.id == categoryId?'active':'' }}"> <a (click)="findBookByCateId(cate.id)">{{ cate.name }}
+                                </a></li>
+                        </ul>
+                    </div>
+                    <div class="widget widget_recent_entries">
+                        <h4 class="widget-title">{{ 'newProduct'|translate }}</h4>
+                        <ul>
+                            <li *ngFor="let ne of listNewBook">
+                                <div class="top-rated-product-item clearfix">
+                                    <div class="top-rated-product-img">
+                                        <a routerLink="/detailProduct/{{ ne.id}}"><img [src]="this.host+'/getImageBook/'+ne.image " class="img-fluid"></a>
+                                    </div>
+                                    <div class="top-rated-product-info pt-4">
+                                        <h6><a routerLink="/detailProduct/{{ ne.id}}">{{ ne.name }}</a></h6>
+                                        <div class="product-price" *ngIf="ne.saleprice!=null && !ne.typesale;">
+                                            <span class="new-price">{{ne.price-ne.saleprice |currency :"VND"}}</span>
+                                            <del> {{ ne.price }}</del>
+                                        </div>
+                                        <div class="product-price" *ngIf="ne.saleprice!=null && ne.typesale;">
+                                            <span class="new-price">{{ne.price-ne.saleprice |currency :"VND"}}</span>
+                                            <del> {{ ne.price |currency :"VND"}}</del>
+                                        </div>
+                                        <div class="product-price" *ngIf="ne.saleprice==null && ne.typesale==null;">
+                                            <span class="new-price">{{ne.price |currency :"VND"}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </aside>
+            </div>
+            <div class="col-lg-9 col-12">
+                <div class="row mb-30">
+                    <div class="col-sm-3 col-12">
+                    </div>
+                    <div class=" col-sm-5 col-12">
+                        <select #a name="w" class="select-style" (change)="setPageSize(a.value)">
+                            <option value="6">{{ 'show' | translate}} 6 {{ 'results'|translate }}</option>
+                            <option value="9">{{ 'show' | translate}} 9 {{ 'results'|translate }}</option>
+                            <option value="12">{{ 'show' | translate}} 12 {{ 'results'|translate }}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <select #t name="stor" class="select-style" (change)="sortBy(t.value.split(',')[0],t.value.split(',')[1])">
+                            <option value="id,DESC">{{ 'sortDefault'|translate }}</option>
+                            <option value="price,DESC">{{ 'price'|translate }} {{ 'highToLow'|translate }}</option>
+                            <option value="price,ASC">{{ 'price'|translate }} {{ 'lowToHigh'|translate }} </option>
+                            <option value="name,DESC">{{ 'name'|translate }} Z-A</option>
+                            <option value="name,ASC">{{ 'name'|translate }} A-Z</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="grid">
+                        <ul class="row">
+                            <li class="col-lg-4 col-sm-6 col-12" *ngFor="let bk of listBook ">
+                                <div class="product-wrap">
+                                    <a routerLink="/detailProduct/{{ bk.id}}">
+                                        <div class="product-img">
+                                            <img [src]="this.host+'/getImageBook/'+bk.image " alt="">
+                                            <span class="on-sale product-flash" *ngIf="bk.saleprice>0">Sale</span>
+                                            <span class="on-featured product-flash" *ngIf="bk.hot">Hot</span>
+                                            <span class="on-new  product-flash" *ngIf="bk.quantity==0">Het </span>
+                                        </div>
+                                    </a>
+                                    <ul class="icon">
+                                        <li><a (click)="!bk.status?err(bk.name): addToCart(bk.id)"><i
+                                                    class="fa fa-shopping-cart"></i></a>
+                                            <span>{{ 'addCart'|translate }}</span>
+                                        </li>
+                                        <li><a routerLink="/detailProduct/{{ bk.id}}"><i class="fa fa-eye"></i></a>
+                                            <span>{{ 'detail'|translate }}</span>
+                                        </li>
+                                    </ul>
+                                    <div class="product-content fix">
+                                        <h3><a routerLink="/detailProduct/{{ bk.id}}" class="text-uppercase">{{ bk.name
+                                                }}</a></h3>
+                                        <span class="pull-left">
+                                            <div class="price" *ngIf="bk.saleprice!=null && bk.typesale;">
+                                                <span class="new-price"> {{
+                                                    bk.price-(bk.saleprice*bk.price/100)|currency:"VND" }}</span>
+                                        <span class="old-price"> {{ bk.price |currency:"VND"}}</span>
+                                    </div>
+                                    <div class="price" *ngIf="bk.saleprice!=null && !bk.typesale;">
+                                        <span class="new-price"> {{bk.price-bk.saleprice
+                                                    |currency:"VND"}}</span>
+                                        <span class="old-price"> {{ bk.price |currency:"VND"}}</span>
+                                    </div>
+                                    <div class="price" *ngIf="bk.saleprice==null && bk.typesale==null;">
+                                        <span class="new-price"> {{ bk.price |currency:"VND"}}</span>
+
+                                    </div>
+                                    </span>
+
+                                </div>
+
+                    </div>
+                    </li>
+                    </ul>
+                    <div class="demo">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination text-center">
+
+                                <li class="page-item" *ngFor="let p of pages;let i=index"><a class="page-link {{ i==pageNumber?'active':'' }}" (click)="setPageNumber(i)">{{ i+1 }}</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

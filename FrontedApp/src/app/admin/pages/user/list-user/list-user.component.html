@@ -1,0 +1,95 @@
+<div class="row">
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ 'list'|translate }} {{ 'category'|translate }} </h4>
+
+                <div class="row">
+                    <div class="col-lg-6 ">
+                        <form class="form-sample pb-3" [formGroup]="searchForm" role="form" (ngSubmit)="searchAccount()">
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="search" placeholder="{{ 'search'|translate }} {{ 'category'|translate }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="submit">
+                    <i class="fa fa-search"></i>
+                  </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-3">
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <select class="form-control" id="exampleFormControlSelect1" #t (change)="setPageSize(t.value)">
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="10">10</option>
+              </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive pt-3">
+
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    # &nbsp;
+                                    <i (click)="sortBy('id','ASC')" class="fa fa-long-arrow-up pointer " aria-hidden="true"></i> &nbsp;
+                                    <i (click)="sortBy('id','DESC')" class="fa fa-long-arrow-down pointer " aria-hidden="true"></i>
+                                </th>
+                                <th>
+                                    {{ 'fullName'|translate }} &nbsp;
+                                    <i (click)="sortBy('name','ASC')" class="fa fa-long-arrow-up pointer " aria-hidden="true"></i> &nbsp;
+                                    <i (click)="sortBy('name','DESC')" class="fa fa-long-arrow-down pointer " aria-hidden="true"></i>
+                                </th>
+                                <th>
+                                    Email &nbsp;
+                                    <i (click)="sortBy('name','ASC')" class="fa fa-long-arrow-up pointer " aria-hidden="true"></i> &nbsp;
+                                    <i (click)="sortBy('name','DESC')" class="fa fa-long-arrow-down pointer " aria-hidden="true"></i>
+                                </th>
+                                <th>
+                                    {{ 'phone'|translate }} &nbsp;
+                                    <i (click)="sortBy('name','ASC')" class="fa fa-long-arrow-up pointer " aria-hidden="true"></i> &nbsp;
+                                    <i (click)="sortBy('name','DESC')" class="fa fa-long-arrow-down pointer " aria-hidden="true"></i>
+                                </th>
+                                <th>
+                                    {{ 'address'|translate }} &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listAccount ">
+                                <td>
+                                    {{ item.id }}
+                                </td>
+                                <td>
+                                    {{ item.name }}
+                                </td>
+                                <td>
+                                    {{ item.email }}
+                                </td>
+                                <td>{{ item.phone }}</td>
+                                <td>
+                                    {{ item.address }}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <div class="demo">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination text-center">
+                                        <li class="page-item" *ngFor="let p of pages;let i=index"><a class="page-link {{ i===pageNumber?'active':'' }}" (click)="setPageNumber(i,$event)">{{ i+1 }}</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

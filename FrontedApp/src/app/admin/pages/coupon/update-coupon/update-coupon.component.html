@@ -1,0 +1,124 @@
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ 'update'|translate }} {{ 'coup'|translate }}</h4>
+            <form class="form-sample " [formGroup]="infoForm" role="form" (ngSubmit)="updateCoupon()">
+                <p class="card-description">
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter' | translate }} {{'name' | translate}} {{ 'coup' | translate }}</label>
+                            <div class="">
+                                <input type="text" class="form-control" formControlName="name" name="name">
+                                <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)|| submitted" class="alert alert-danger">
+                                    <div *ngIf="f['name'].errors">
+                                        <div *ngIf="f['name'].errors['required']">
+                                            {{ 'nam'| translate }} {{ 'required'|translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter' | translate }} {{ 'quantity'| translate }}</label>
+                            <div class="">
+                                <input type="text" class="form-control" formControlName="quantity" name="quantity">
+                                <div *ngIf="f['quantity'].invalid && (f['quantity'].dirty || f['quantity'].touched)|| submitted" class="alert alert-danger">
+                                    <div *ngIf="f['quantity'].errors">
+                                        <div *ngIf="f['quantity'].errors['required']">
+                                            {{ 'quantity'| translate }} {{ 'required'| translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class=" col-form-label">{{ 'typeSale'| translate }}</label>
+                            <div class=" yc-form">
+                                <input type="radio" id="r-yes" formControlName="type" name="type" value="true" checked />
+                                <label for="r-yes">{{ 'disPer'|translate }}</label>
+                                <input type="radio" id="r-no" formControlName="type" name="type" value="false" />
+                                <label for="r-no">{{ 'disPri'|translate }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter' | translate }} {{ 'disValue'|translate }}</label>
+                            <div class="">
+                                <input type="number" class="form-control" formControlName="discountvalue" name="discountvalue">
+                                <div *ngIf="f['discountvalue'].invalid && (f['discountvalue'].dirty || f['discountvalue'].touched)|| submitted" class="alert alert-danger">
+                                    <div *ngIf="f['discountvalue'].errors">
+                                        <div *ngIf="f['discountvalue'].errors['required']">
+                                            {{ 'disvalue'| translate }} {{ 'required'|translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter' | translate }} {{ 'startdate'|translate }}</label>
+                            <div class="">
+                                <input type="date" class="form-control" formControlName="startdate" name="startdate">
+                                <div *ngIf="f['startdate'].invalid && (f['startdate'].dirty || f['startdate'].touched)|| submitted" class="alert alert-danger">
+                                    <div *ngIf="f['startdate'].errors">
+                                        <div *ngIf="f['startdate'].errors['required']">
+                                            {{ 'startdate'| translate }} {{ 'required'| translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter' | translate }} {{ 'enddate'|translate }}</label>
+                            <div class="">
+                                <input type="date" class="form-control" formControlName="enddate" name="enddate">
+                                <div *ngIf="f['enddate'].invalid && (f['enddate'].dirty || f['enddate'].touched)|| submitted" class="alert alert-danger">
+                                    <div *ngIf="f['enddate'].errors">
+                                        <div *ngIf="f['enddate'].errors['required']">
+                                            {{ 'enddate'| translate }} {{ 'required'| translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter' | translate }} {{ 'conditionCoupon' | translate }}(vnd)</label>
+                            <div class="">
+                                <input type="number" class="form-control" formControlName="condition" name="condition">
+                                <div *ngIf="f['condition'].invalid && (f['condition'].dirty || f['condition'].touched)|| submitted" class="alert alert-danger">
+                                    <div *ngIf="f['condition'].errors">
+                                        <div *ngIf="f['condition'].errors['condition']">
+                                            {{ 'conditionCoupon' | translate }} {{ 'required' | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">{{ 'send'|translate }}</button>
+                <a class="btn btn-light" [routerLink]="['/admin/listCoupon']">{{ 'back'|translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ 'update'|translate }} {{ 'category'|translate }}</h4>
+            <form class="form-sample" [formGroup]="infoForm" role="form" (ngSubmit)="updateCategory()">
+                <p class="card-description">
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'nam'|translate }} {{ 'category'|translate }}</label>
+                            <div class="">
+                                <input type="text" class="form-control" formControlName="name" placeholder="{{ 'enter'|translate }} {{ 'nam'|translate }} {{ 'category'|translate }}">
+                                <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched) || submitted" class="alert alert-danger">
+                                    <div *ngIf="f['name'].errors">
+                                        <div *ngIf="f['name'].errors['required']">
+                                            {{ 'name'|translate }} {{ 'required'|translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'status' | translate }} {{ 'category'|translate }}</label>
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                  <input type="radio" class="form-check-input" formControlName="status" id="membershipRadios1"  value="true">
+                  {{ 'approved'|translate }}
+                <i class="input-helper"></i></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                  <input type="radio" class="form-check-input" formControlName="status" id="membershipRadios2" value="false">
+                  {{ 'notapproved'|translate }}
+                <i class="input-helper"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">{{ 'send'|translate }}</button>
+                <a class="btn btn-light" [routerLink]="['/admin/listCategory']">{{ 'back'|translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>

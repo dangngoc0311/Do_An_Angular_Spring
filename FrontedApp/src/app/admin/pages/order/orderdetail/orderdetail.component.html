@@ -1,0 +1,141 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="invoice p-3 mb-3 callout callout-info">
+                    <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                            To
+                            <address>
+                                <strong>{{ order.name }}</strong><br>
+                                {{ 'address'|translate }} : {{ order.address }}<br>
+                                {{ 'phone'|translate }} : {{ order.phone }}<br>
+                            </address>
+                        </div>
+
+                        <div class="col-sm-4 invoice-col">
+
+                            <br>
+                            <b> ID:</b> {{ order.id }}<br>
+
+                            <b>{{ 'orderDate'|translate }}: {{ order.orderdate |date: 'dd/MM/yyyy' }}</b>
+                        </div>
+                        <div class="col-sm-4 invoice-col">
+
+                            <br>
+                            <b> {{ 'status' | translate }}</b> :<br>
+
+                            <b *ngIf="order.status==0" class="text-danger">
+                                {{ 'pending'|translate }}
+                            </b>
+                            <b *ngIf="order.status==1" class="text-warning ">
+                                {{ 'confirm'|translate }}
+                            </b>
+                            <b *ngIf="order.status==2" class="text-primary">
+                                {{ 'delivery'|translate }}
+                            </b>
+                            <b *ngIf="order.status==3" class="text-success ">
+                                {{ 'successDelivery'|translate }}
+                            </b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>{{ 'name'|translate }}</th>
+                                        <th>{{ 'price'|translate }}</th>
+                                        <th>{{ 'quantity'|translate }}</th>
+                                        <th>{{ 'totalPrice'|translate }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of listOrderDetail">
+                                        <td>{{ item.objBookOrder.id }}</td>
+                                        <td>{{ item.objBookOrder.name }}</td>
+                                        <td>{{ item.price |currency:"VND" }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>{{ item.quantity*item.price |currency:"VND" }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                        </div>
+                        <div class="col-5">
+                            <p class="lead">{{ 'orderDate'|translate }} : {{ order.orderdate |date: 'dd/MM/yyyy' }} </p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr *ngIf="order.objOrderCoupon!=null">
+                                            <th>{{ 'coup'|translate }} : </th>
+                                            <td *ngIf="order.objOrderCoupon.type">
+                                                {{ (order.objOrderCoupon.discountvalue*order.subtotalprice)/100 |currency:"VND" }}
+                                            </td>
+                                            <td *ngIf="!order.objOrderCoupon.type">
+                                                {{ order.subtotalprice-(order.subtotalprice-order.objOrderCoupon.discountvalue) |currency:"VND"}}
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="order.objOrderCoupon==null">
+                                            <th> </th>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ 'totalPrice'|translate }}:</th>
+                                            <td *ngIf="order.objOrderCoupon != null &&order.objOrderCoupon.type">
+                                                {{ order.subtotalprice-(order.objOrderCoupon.discountvalue*order.subtotalprice/100) | currency :"VND"}}
+                                            </td>
+                                            <td *ngIf="order.objOrderCoupon != null &&!order.objOrderCoupon.type">
+                                                {{ order.subtotalprice-order.objOrderCoupon.discountvalue | currency :"VND"}}
+                                            </td>
+                                            <td *ngIf="order.objOrderCoupon == null">
+                                                {{ order.subtotalprice | currency :"VND" }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-print">
+                        <div class="col-12">
+                            <div class=" offset-md-7 col-md-5 mb-5 " *ngIf="order.status==0">
+                                <select name="cars" #t id="cars" class="float-right form-control">
+                                    <option [value]="0" selected="{{ order.status == 0 ? 'selected' :''}}">{{
+                                        'pending'|translate }}
+                                    </option>
+                                    <option [value]="1" selected="{{ order.status == 1 ? 'selected' :''}}">{{
+                                        'confirm'|translate }}
+                                    </option>
+                                </select>
+                                <button (click)="getFilterDetails(t.value)" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                    {{ 'send'|translate }}
+                                </button>
+                            </div>
+                            <div class=" offset-md-7 col-md-5 mb-5 " *ngIf="order.status==1">
+                                <select name="cars" #c id="cars" class="float-right form-control">
+                                    <option [value]="1" selected="{{ order.status == 1 ? 'selected' :''}}">{{
+                                        'confirm'|translate }}
+                                    </option>
+                                    <option [value]="2" selected="{{ order.status == 2 ? 'selected' :''}}"> {{
+                                        'delivery'|translate }}
+                                    </option>
+                                </select>
+                                <button (click)="getFilterDetails(c.value)" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                    {{ 'send'|translate }}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <a [routerLink]="['/admin/listOrder']" class="btn btn-primary">{{ 'back'|translate }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,91 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'account'|translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home'|translate }}</a></li>
+                        <li><span>{{ 'register'|translate }} </span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="account-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 offset-lg-2 col-md-9 offset-md-1 col-12">
+                <form class="account-form form-style" [formGroup]="infoForm" role="form" (ngSubmit)="registerUser()">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">{{ 'fullName'|translate }}</label>
+                            <input type="text" class="form-control" id="inputEmail4" formControlName="name" name="name">
+                            <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched) || submitted" class="text-danger">
+                                <div *ngIf="f['name'].errors">
+                                    <div *ngIf="f['name'].errors['required']">
+                                        {{ 'fullName'|translate }} {{ 'required'|translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Email</label>
+                            <input type="email" class="form-control" id="inputPassword4" formControlName="email" name="email">
+                            <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)|| submitted" class="text-danger">
+                                <div *ngIf="f['email'].errors">
+                                    <div *ngIf="f['email'].errors['required']">
+                                        Email {{ 'required'|translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputAddress">{{ 'phone'|translate }}</label>
+                            <input class="form-control" id="inputAddress" formControlName="phone" name="phone">
+                            <div *ngIf="f['phone'].invalid && (f['phone'].dirty || f['phone'].touched)|| submitted" class="text-danger">
+                                <div *ngIf="f['phone'].errors">
+                                    <div *ngIf="f['phone'].errors['required']">
+                                        {{ 'phone'|translate }} {{ 'required'|translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputAddress2">{{ 'password'|translate }}</label>
+                            <input type="password" class="form-control" id="inputAddress2" formControlName="password" name="password">
+                            <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)|| submitted" class="text-danger">
+                                <div *ngIf="f['password'].errors">
+                                    <div *ngIf="f['password'].errors['required']">
+                                        {{ 'password'|translate }} {{ 'required'|translate }}
+                                    </div>
+                                    <div *ngIf="f['password'].errors['minlength']">
+                                        {{ 'password'|translate }} {{ 'minLength'|translate }} 6 {{ 'characters'|translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="inputCity">{{ 'address'|translate }}</label>
+                            <textarea class="form-control" rows="3" formControlName="address" name="address"></textarea>
+                            <div *ngIf="f['address'].invalid && (f['address'].dirty || f['address'].touched)|| submitted" class="text-danger">
+                                <div *ngIf="f['address'].errors">
+                                    <div *ngIf="f['address'].errors['required']">
+                                        {{ 'address'|translate }} {{ 'required'|translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ 'send'|translate }}</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

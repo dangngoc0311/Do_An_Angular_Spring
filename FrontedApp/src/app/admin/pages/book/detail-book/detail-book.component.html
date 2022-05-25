@@ -1,0 +1,198 @@
+<section class="content">
+
+    <div class="card card-solid">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-sm-5">
+
+
+                    <img [src]="this.host+'/getImageBook/'+book.image " class="product-image pl-5">
+
+
+                </div>
+                <div class="col-12 col-sm-7">
+                    <div class="product-single-content">
+                        <h1 class="text-uppercase">{{ book.name }}</h1>
+                        <div class="rating-wrap fix">
+                            <span class="pull-left">
+
+                <div class="price" *ngIf="book.saleprice!=null && book.typesale;">
+                  {{ 'price'|translate }} :
+                  <span class="new-price"> {{ book.price-(book.saleprice*book.price/100) |currency :"VND"}}</span>
+                            <span class="old-price"> {{ book.price |currency :"VND"}}</span>
+                        </div>
+                        <div class="price" *ngIf="book.saleprice!=null && !book.typesale;">
+                            {{ 'price'|translate }} :
+                            <span class="new-price"> {{book.price-book.saleprice |currency :"VND"}}</span>
+                            <span class="old-price"> {{ book.price |currency :"VND"}}</span>
+                        </div>
+                        <div class="price" *ngIf="book.saleprice==null && book.typesale==null;">
+                            {{ 'price'|translate }} :
+                            <span class="new-price"> {{ book.price |currency :"VND"}}</span>
+                        </div>
+                        </span>
+                        <ul class="rating pull-right" *ngIf="totalstar==5">
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li>({{ totalRe }} {{ 'customerReview'|translate }})</li>
+                        </ul>
+                        <ul class="rating pull-right" *ngIf="totalstar==4">
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li>({{ totalRe }} {{ 'customerReview'|translate }})</li>
+                        </ul>
+                        <ul class="rating pull-right" *ngIf="totalstar==3">
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li>({{ totalRe }} {{ 'customerReview'|translate }})</li>
+                        </ul>
+                        <ul class="rating pull-right" *ngIf="totalstar==2">
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li>({{ totalRe }} {{ 'customerReview'|translate }})</li>
+                        </ul>
+                        <ul class="rating pull-right" *ngIf="totalstar==1">
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li>({{ totalRe }} {{ 'customerReview'|translate }})</li>
+                        </ul>
+                        <ul class="rating pull-right" *ngIf="totalstar==0">
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li><i class="fa fa-star text-secondary"></i></li>
+                            <li>({{ totalRe }} {{ 'customerReview'|translate }})</li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <h6>{{ 'author'|translate }} :
+                        <span style="font-size: 16px;color: darkgray;">{{ book.author }}</span>
+                    </h6>
+                    <br>
+                    <h6>{{ 'publisher'|translate }} :
+                        <span style="font-size: 16px;color: darkgray;">{{ book.publisher }}</span>
+                    </h6>
+                    <br>
+                    <h6>{{ 'category'|translate }} :
+                        <span style="font-size: 16px;color: darkgray;">{{ book.objCategory?.name }}</span>
+                    </h6>
+                    <br>
+                    <ul class="cetagory">
+                        <li style="font-size: 16px;">{{ 'status'|translate }} :<span style="padding-left: 5px;">Con {{
+                  book.quantity
+                  }} sp</span> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <nav class="w-100">
+                <div class="nav nav-tabs" id="product-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">{{ 'description'|translate }}</a>
+                    <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">{{ 'reviews'|translate }}</a>
+                </div>
+            </nav>
+            <div class="tab-content p-3" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab" [innerHtml]="book.description">
+                </div>
+                <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    # &nbsp;
+                                </th>
+                                <th>
+                                    {{ 'nam'|translate }}
+                                </th>
+                                <th>
+                                    {{ 'rating'|translate }} &nbsp;
+                                </th>
+                                <th>{{ 'description'|translate }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listReview ">
+                                <td>
+                                    {{ item.id }}
+                                </td>
+                                <td>
+                                    {{ item.objReviewBook.name }}
+                                </td>
+                                <td>
+                                    <div class="product-ratting">
+                                        <ul *ngIf="item.rating==1">
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                        </ul>
+                                        <ul *ngIf="item.rating==2">
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                        </ul>
+                                        <ul *ngIf="item.rating==3">
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                        </ul>
+                                        <ul *ngIf="item.rating==4">
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 text-secondary"></i></li>
+                                        </ul>
+                                        <ul *ngIf="item.rating==5">
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2"></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                            <li style="font-size:15px"><i class="fa fa-star pr-2 "></i></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ item.description }}
+                                </td>
+                                <td *ngIf="item.status==1">
+                                    <a (click)="changeStatus(item.id)"> <i class="fa fa-check text-success" aria-hidden="true"></i></a>
+                                </td>
+                                <td *ngIf="item.status==0">
+                                    <a (click)="changeStatus(item.id)"><i class="fa fa-times text-danger" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</section>

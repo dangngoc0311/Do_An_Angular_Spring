@@ -1,0 +1,57 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'coupon'|translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home'|translate }}</a></li>
+                        <li><span>{{ 'coupon'|translate }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-area ptb-100">
+    <div class="container">
+
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <ul class="row">
+                    <li class="col-lg-6 col-sm-6 col-12 userCoupon" *ngFor="let item of listCouponExpired;">
+                        <div class="coupon border rounded mb-3 d-flex justify-content-between">
+
+                            <div class="tengah p-3 d-flex w-100 justify-content-start">
+                                <div>
+                                    <span class="badge badge-success">{{ 'applyFrom'|translate }} : {{ item.condition | currency: "VND"
+                    }}</span>
+                                    <h3 class="lead">{{ item.name }} </h3>
+                                    <p class="text-muted mb-0">{{ 'start'|translate }} : {{ item.startdate|date: 'dd/MM/yyyy'}} - {{ 'end'|translate }} : {{ item.enddate |date: 'dd/MM/yyyy' }}</p>
+                                </div>
+                            </div>
+                            <div class="kanan">
+                                <div class="info m-3 d-flex align-items-center">
+                                    <div class="w-100">
+                                        <div class="block">
+                                            <span class="time font-weight-light">
+                        <span *ngIf="item.type">{{ item.discountvalue }} %</span>
+                                            <span *ngIf="!item.type"> {{ item.discountvalue | currency: "VND" }} </span>
+                                            </span>
+                                        </div>
+
+                                        <a class="btn btn-sm btn-outline-danger btn-block" (click)="insertUserCoupon(item.id)">
+                      {{ 'save'|translate }}
+                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <a class="loadmore-btn" [routerLink]="['/userDetail']">{{ 'viewSaved'|translate }}</a>
+            </div>
+
+        </div>
+    </div>
+</div>

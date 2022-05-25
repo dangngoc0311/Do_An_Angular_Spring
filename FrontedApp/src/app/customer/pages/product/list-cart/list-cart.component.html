@@ -1,0 +1,82 @@
+<div class="breadcumb-area bg-img-1 black-opacity ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>{{ 'cart' | translate }}</h2>
+                    <ul>
+                        <li><a [routerLink]="['']">{{ 'home' | translate }}</a></li>
+                        <li><span>{{ 'cart'|translate }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="cart">
+                    <table class="table-responsive cart-wrap">
+                        <thead>
+                            <tr>
+                                <th class="images">{{ 'image'|translate }}</th>
+                                <th class="product">{{ 'name'|translate }}</th>
+                                <th class="ptice">{{ 'price' | translate }}/{{ 'salePrice' | translate }}</th>
+                                <th class="quantity">{{ 'quantity' | translate }}</th>
+                                <th class="total">{{ 'totalPrice' | translate }}</th>
+                                <th class="remove">{{ 'remove'| translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of cart">
+                                <td class="images"><img [src]="this.host+'/getImageBook/'+item.image "></td>
+                                <td class="product"><a href="single-product.html">{{ item.name }}</a></td>
+                                <td class="ptice" *ngIf="item.saleprice!=null && item.typesale;">{{ item.price | currency: "VND"}}/{{ item.price-(item.saleprice*item.price/100) | currency: "VND"}}</td>
+                                <td class="ptice" *ngIf="item.saleprice!=null && !item.typesale;">{{ item.price | currency: "VND"}}/{{ item.price-item.saleprice | currency: "VND"}}</td>
+                                <td class="ptice" *ngIf="item.saleprice==null && item.typesale==null">{{ item.price | currency: "VND"}}</td>
+                                <td class="quantity cart-plus-minus">
+                                    <input type="text" value="{{ item.qty }}">
+                                    <button (click)="minus(item.id)" class="dec qtybutton">-</button>
+                                    <button (click)="plus(item.id)" class="inc qtybutton">+</button>
+                                </td>
+                                <td class="total" *ngIf="item.saleprice!=null && item.typesale;">{{ (item.price-(item.saleprice*item.price/100))*item.qty | currency: "VND"}}</td>
+                                <td class="total" *ngIf="item.saleprice!=null && !item.typesale;">{{ (item.price-item.saleprice)*item.qty | currency: "VND"}}</td>
+                                <td class="total" *ngIf="item.saleprice==null && item.typesale==null">{{ item.price*item.qty | currency: "VND"}}</td>
+                                <td class="remove"><button (click)="remove(item.id)"> <i class="fa fa-times"></i></button></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="row mt-60">
+                        <div class="col-xl-6 col-lg-5 col-md-6 ">
+                            <div class="cartcupon-wrap">
+                                <h3>{{ 'coupon'| translate }}</h3>
+                                <p>{{ 'chooseCoupon' | translate }}</p>
+                                <div class="cupon-wrap">
+                                    <select name="cars" #t id="cars" class="form-control mb-3">
+                                      <option>-- {{ 'couponChoose' | translate }} --</option>
+                                    <option *ngFor="let cou of listCouponUser" [value]="cou.objCouponUser.id" [disabled]="cou.objCouponUser.condition>totalPriceCart||!cou.objCouponUser.status" >
+                                    Giam {{ cou.objCouponUser.discountvalue | currency: "VND"}} {{ cou.objCouponUser.type?'%':'VND' }} (Don hang tu {{ cou.objCouponUser.condition | currency: "VND"}})
+                                    </option>
+                                  </select>
+                                    <button (click)="useCouponUser(t.value)">{{ 'apply'|translate }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 offset-xl-3 col-lg-4 offset-lg-2 col-md-6">
+                            <div class="cart-total text-right">
+                                <h3>{{ 'cartTotal' | translate }}</h3>
+                                <ul>
+                                    <li><span class="pull-left"> {{ 'totalPrice'|translate }} </span> {{ totalPriceCart | currency: "VND"}}</li>
+                                </ul>
+                                <a [routerLink]="cartItems == null ? ['/listProduct'] :['/checkOut'] ">{{ 'process'|translate }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

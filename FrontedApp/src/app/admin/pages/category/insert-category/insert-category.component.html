@@ -1,0 +1,34 @@
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ 'add'|translate }} {{ 'category'|translate }}</h4>
+            <form class="form-sample" [formGroup]="infoForm" role="form" (ngSubmit)="insertCategory()">
+                <p class="card-description">
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'nam'|translate }} {{ 'category'|translate }}</label>
+                            <div class="">
+                                <input type="text" class="form-control" formControlName="name" placeholder="{{ 'enter'|translate }} {{ 'nam'|translate }} {{ 'category'|translate }}">
+                                <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)  || submitted" class="text-danger">
+                                    <div *ngIf="f['name'].errors">
+                                        <div *ngIf="f['name'].errors['required']">
+                                            {{ 'nam'|translate }} {{ 'required'|translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary mr-2">{{ 'send'|translate }}</button>
+                <a class="btn btn-light" [routerLink]="['/admin/listCategory']">{{ 'back'|translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,249 @@
+<div class="ltn__slider-area ltn__slider-6 mb-120---">
+    <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1 slick-initialized slick-slider">
+        <!-- ltn__slide-item -->
+        <div aria-live="polite" class="slick-list draggable">
+            <div class="slick-track" style="opacity: 1; width: 1583px;" role="listbox">
+                <div class="ltn__slide-item--- ltn__slide-item-9 section-bg-1 img-fluid bg-image slick-slide slick-current slick-active" data-bg="../../../../../assets/customer/images/banner/banner.jpg" data-slick-index="0" style="background-image: url(&quot;../../../../../assets/customer/images/banner/banner.jpg&quot;); width: 1583px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;"
+                    aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00">
+                    <div class="ltn__slide-item-inner">
+                        <div class="slide-item-info bg-overlay-white-90 text-center">
+                            <div class="slide-item-info-inner  ltn__slide-animation">
+                                <h1 class="slide-title animated">YOUR WORLD <br> OF WORDS</h1>
+                                <h4 class="slide-sub-title text-uppercase animated">SITEWIDE 21% OFF</h4>
+                                <div class="btn-wrapper animated">
+                                    <a href="shop.html" class="theme-btn-1 btn btn-effect-1 text-uppercase" tabindex="0">Shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+    </div>
+</div>
+<!-- slider-area end -->
+<!-- category-area start -->
+<div class="ltn__feature-area before-bg-bottom-2 mb--30--- plr--5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ltn__feature-item-box-wrap ltn__border-between-column white-bg">
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="ltn__feature-item ltn__feature-item-8">
+                                <div class="ltn__feature-icon">
+                                    <img src="../../../../assets/customer/images/icon/4-track.svg" alt="#">
+                                </div>
+                                <div class="ltn__feature-info">
+                                    <h4>Free home delivery</h4>
+                                    <p>Provide free home delivery for all over 100</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="ltn__feature-item ltn__feature-item-8">
+                                <div class="ltn__feature-icon">
+                                    <img src="../../../../assets/customer/images/icon/5-madel.svg" alt="#">
+                                </div>
+                                <div class="ltn__feature-info">
+                                    <h4>Quality Products</h4>
+                                    <p>We ensure the product quality that is our main goal</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="ltn__feature-item ltn__feature-item-8">
+                                <div class="ltn__feature-icon">
+                                    <img src="../../../../assets/customer/images/icon/6-return.svg" alt="#">
+                                </div>
+                                <div class="ltn__feature-info">
+                                    <h4>3 Days Return</h4>
+                                    <p>Return product within 3 days for any product you buy</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="ltn__feature-item ltn__feature-item-8">
+                                <div class="ltn__feature-icon">
+                                    <img src="../../../../assets/customer/images/icon/7-support.svg" alt="#">
+                                </div>
+                                <div class="ltn__feature-info">
+                                    <h4>Online Support</h4>
+                                    <p>We ensure the product that you can trust easily</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- category-area end -->
+<!-- product-area start -->
+<div class="product-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>{{ 'allProduct' | translate }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-9 col-lg-10">
+                <div class="product-menu">
+                    <ul class="nav">
+                        <li>
+                            <a class="{{  categoryId==''?'active':'' }}" (click)="findBookByCateId('')">{{ 'allProduct'|translate
+                }}</a>
+                        </li>
+                        <li *ngFor="let cate of listCate">
+                            <a class="{{ cate.id == categoryId?'active':'' }}" (click)="findBookByCateId(cate.id)">{{ cate.name }}</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="all">
+                <ul class="row">
+                    <li class="col-lg-3 col-sm-6 col-12" *ngFor="let bk of listBook ">
+                        <div class="product-wrap">
+                            <a routerLink="/detailProduct/{{ bk.id}}">
+                                <div class="product-img">
+
+                                    <img [src]="this.host+'/getImageBook/'+bk.image " alt="">
+
+                                    <span class="on-sale product-flash" *ngIf="bk.saleprice>0">Sale</span>
+                                    <span class="on-featured product-flash" *ngIf="bk.hot">Hot</span>
+                                    <span class="on-new  product-flash" *ngIf="!bk.status">Het </span>
+                                </div>
+                            </a>
+                            <ul class="icon">
+                                <li><a (click)="!bk.status?err(bk.name): addToCart(bk.id)"><i class="fa fa-shopping-cart"></i></a>
+                                    <span>{{ 'addCart'|translate }}</span>
+                                </li>
+                                <li><a routerLink="/detailProduct/{{ bk.id}}"><i class="fa fa-eye"></i></a>
+                                    <span>{{ 'detail'|translate }}</span>
+                                </li>
+                            </ul>
+                            <div class="product-content fix">
+                                <h3><a routerLink="/detailProduct/{{ bk.id}}" class="text-uppercase">{{ bk.name }}</a></h3>
+                                <span class="pull-left">
+                  <div class="price" *ngIf="bk.saleprice!=null && bk.typesale;">
+                    <span class="new-price"> {{ bk.price-(bk.saleprice*bk.price/100)|currency:"VND" }}</span>
+                                <span class="old-price"> {{ bk.price |currency:"VND"}}</span>
+                            </div>
+                            <div class="price" *ngIf="bk.saleprice!=null && !bk.typesale;">
+                                <span class="new-price"> {{bk.price-bk.saleprice |currency:"VND"}}</span>
+                                <span class="old-price"> {{ bk.price |currency:"VND"}}</span>
+                            </div>
+                            <div class="price" *ngIf="bk.saleprice==null && bk.typesale==null;">
+                                <span class="new-price"> {{ bk.price |currency:"VND"}}</span>
+
+                            </div>
+                            </span>
+
+                        </div>
+
+            </div>
+            </li>
+
+
+            <li class="col-12 text-center">
+                <a class="loadmore-btn" (click)="loadMore()">Load More</a>
+            </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- product-area end -->
+<!-- banner-area start -->
+<div class="banner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="banner-wrap">
+                    <a href="">
+                        <img src="../../../../assets/customer/images/banner/1.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- banner-area end -->
+<!-- blog-area start -->
+<div class="blog-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Latest News</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="blog-wrap">
+                    <div class="deat">
+                        <p>25<span>JAN</span></p>
+                    </div>
+                    <img src="https://auteur.g5plus.net/main/wp-content/uploads/2018/11/post-04.jpg" alt="blog">
+                    <div class="blog-content">
+                        <h3><a href="blog.html">We are Providing You the Best Things</a></h3>
+                        <ul>
+                            <li>By <a href="#">Admin</a></li>
+                            <li>|</li>
+                            <li><a href="#">Product</a></li>
+                        </ul>
+                        <a href="blog-details.html" class="readmore">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="blog-wrap">
+                    <div class="deat">
+                        <p>12<span>APRIL</span></p>
+                    </div>
+                    <img src="https://auteur.g5plus.net/main/wp-content/uploads/2018/11/post-09.jpg" alt="blog">
+                    <div class="blog-content">
+                        <h3><a href="blog.html">laborum aliquam quia molestiae.</a></h3>
+                        <ul>
+                            <li>By <a href="#">Admin</a></li>
+                            <li>|</li>
+                            <li><a href="#">Product</a></li>
+                        </ul>
+                        <a href="blog-details.html" class="readmore">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="blog-wrap">
+                    <div class="deat">
+                        <p>18<span>JUN</span></p>
+                    </div>
+                    <img src="https://auteur.g5plus.net/main/wp-content/uploads/2018/11/post-17.jpg" alt="blog">
+                    <div class="blog-content">
+                        <h3><a href="blog.html">Sequi debitis vitae the beatae maxime.</a></h3>
+                        <ul>
+                            <li>By <a href="#">Admin</a></li>
+                            <li>|</li>
+                            <li><a href="#">Product</a></li>
+                        </ul>
+                        <a href="blog-details.html" class="readmore">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog-area end -->

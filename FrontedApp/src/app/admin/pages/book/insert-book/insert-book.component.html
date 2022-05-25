@@ -1,0 +1,192 @@
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ 'add'|translate }} {{ 'book'|translate }}</h4>
+            <form class="form-sample" role="form" [formGroup]="infoForm" (ngSubmit)="insertBook()" method="POST" enctype="multipart/form-data">
+                <p class="card-description">
+                </p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'name'|translate }}</label>
+                            <div class="">
+                                <input type="text" class="form-control" formControlName="name" name="name">
+                                <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched) || submitted" class="text-danger">
+                                    <div *ngIf="f['name'].errors">
+                                        <div *ngIf="f['name'].errors['required']">
+                                            {{ 'name' | translate}} {{ 'required' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'publisher'|translate }}</label>
+                            <div class="">
+                                <input type="text" class="form-control" formControlName="publisher" name="publisher">
+                                <div *ngIf="f['publisher'].invalid && (f['publisher'].dirty || f['publisher'].touched)|| submitted" class="text-danger">
+                                    <div *ngIf="f['publisher'].errors">
+                                        <div *ngIf="f['publisher'].errors['required']">
+                                            {{ 'publisher'|translate }} {{ 'required'|translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'author'|translate }}</label>
+                            <div class="">
+                                <input type="text" class="form-control" formControlName="author" name="author">
+                                <div *ngIf="f['author'].invalid && (f['author'].dirty || f['author'].touched)|| submitted" class="text-danger">
+                                    <div *ngIf="f['author'].errors">
+                                        <div *ngIf="f['author'].errors['required']">
+                                            {{ 'author' | translate}} {{ 'required'|translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'price'|translate }}</label>
+                            <div class="">
+                                <input type="number" class="form-control" formControlName="price" placeholder="{{ 'enter'|translate }} gia" name="price">
+                                <div *ngIf="f['price'].invalid && (f['price'].dirty || f['price'].touched)|| submitted" class="text-danger">
+                                    <div *ngIf="f['price'].errors">
+                                        <div *ngIf="f['price'].errors['required']">
+                                            {{ 'price' | translate}} {{ 'required'|translate }}
+                                        </div>
+                                        <div *ngIf="f['price'].errors['min']">
+                                            {{ 'minPrice' | translate}} 1000.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'quantity' |translate}}</label>
+                            <div class="">
+                                <input type="number" class="form-control" formControlName="quantity" name="quantity">
+                                <div *ngIf="f['quantity'].invalid && (f['quantity'].dirty || f['quantity'].touched)|| submitted" class="text-danger">
+                                    <div *ngIf="f['quantity'].errors">
+                                        <div *ngIf="f['quantity'].errors['required']">
+                                            {{ 'quantity'|translate }} {{ 'required'|translate }}
+                                        </div>
+                                        <div *ngIf="f['quantity'].errors['min']">
+                                            {{ 'minPrice'|translate }} 1.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'typeSale'|translate }}</label>
+                            <div class="">
+                                <select class="form-control" formControlName="typesale" id="typesale" onchange="myFunction()" name="typesale">
+                                <option value="">{{ 'defaultSelect' | translate }}</option>
+                                <option value="true">{{ 'disPer' | translate }} </option>
+                                <option value="false">{{ 'disPri' | translate }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'disValue'|translate }} </label>
+                            <div class="">
+                                <input type="number" class="form-control" formControlName="saleprice" name="saleprice">
+                                <div *ngIf="f['saleprice'].errors" class="text-danger">
+                                    <div *ngIf="f['saleprice'].errors['min']">
+                                        {{ 'minPrice'|translate }} 1.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'image'|translate }} </label>
+                            <div class="">
+                                <input type="file" accept="image/*" class="form-control " (change)="onFileChanged($event)" formControlName="image" name="image">
+                                <div *ngIf="f['image'].invalid && (f['image'].dirty || f['image'].touched) || submitted" class="text-danger">
+                                    <div *ngIf="f['image'].errors">
+                                        <div *ngIf="f['image'].errors['required']">
+                                            {{ 'image'| translate}} {{ 'required'|translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <img [src]="imgURL" *ngIf="imgURL" width="200px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{'category'|translate}}</label>
+                            <select class="form-control" formControlName="objCategory" name="objCategory">
+                              <option> {{ 'defaultSelect'|translate }}</option>
+                          <option *ngFor="let item of listCate" [ngValue]="item">{{ item.name }}</option>
+                        </select>
+                            <div *ngIf="f['objCategory'].invalid && (f['objCategory'].dirty || f['objCategory'].touched)|| submitted" class="text-danger">
+                                <div *ngIf="f['objCategory'].errors">
+                                    <div *ngIf="f['objCategory'].errors['required']">
+                                        {{ 'category'|translate }} {{ 'required'|translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <label class=" col-form-label">{{ 'enter'|translate }} {{ 'description'|translate }}</label>
+                            <div class="">
+                                <angular-editor formControlName="description" id="description" placeholder="{{ 'enter'|translate }} {{ 'description' | translate}}" name="description" [config]="editorConfig"></angular-editor>
+                                <div *ngIf="f['description'].invalid && (f['description'].dirty || f['description'].touched)|| submitted" class="text-danger">
+                                    <div *ngIf="f['description'].errors">
+                                        <div *ngIf="f['description'].errors['required']">
+                                            {{ 'description' | translate}} {{ 'required'|translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class=" col-form-label">{{ 'hotProduct'|translate }}</label>
+                            <div class=" yc-form">
+                                <input type="radio" id="r-yes" formControlName="hot" name="hot" value="false" checked />
+                                <label for="r-yes">&nbsp;&nbsp;&nbsp;</label>
+                                <input type="radio" id="r-no" formControlName="hot" name="hot" value="true" />
+                                <label for="r-no">{{ 'hotProduct'|translate }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">{{ 'send'|translate }}</button>
+                <a class="btn btn-light" [routerLink]="['/admin/listBook']">{{ 'back'|translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>
+<p id="demo"></p>
